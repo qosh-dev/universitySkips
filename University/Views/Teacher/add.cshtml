@@ -1,0 +1,90 @@
+@section reportBlock {
+}
+@section CSS {
+    <style>
+        #sideBar{
+            height: 1000px;
+            
+        }
+        select{
+            margin: auto;
+        }
+    </style>
+}
+@model Teacher;
+    <form style="margin-left: 25px;" asp-controller="Teacher" asp-action="add" method="POST" >
+            <div asp-validation-summary="ModelOnly" ></div>
+                
+                <div>
+                    <label asp-for="Name"></label><br />
+                    <input type="text" asp-for="Name"/>
+                    <span asp-validation-for="Name"></span>
+                </div>
+                
+                <div>
+                    <label asp-for="Surname"></label><br />
+                    <input type="text" asp-for="Surname"/>
+                    <span asp-validation-for="Surname"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Patronymic"></label><br />
+                    <input type="text" asp-for="Patronymic"/>
+                    <span asp-validation-for="Patronymic"></span>
+                </div>
+
+                <div>
+                    <label asp-for="PhoneNumber"></label><br />
+                    <input type="text" asp-for="PhoneNumber"/>
+                    <span asp-validation-for="PhoneNumber"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Email"></label><br />
+                    <input type="text" asp-for="Email" value="Не указано"/>
+                    <span asp-validation-for="Email"></span>
+                </div>
+
+                <div>
+                    <label asp-for="AcademicDegree"></label><br />
+                    <input type="text" asp-for="AcademicDegree" value="Не указано"/>
+                    <span asp-validation-for="AcademicDegree"></span>
+                </div>
+
+                <div>
+                    <label asp-for="AcademicTitle"></label><br />
+                    <input type="text" asp-for="AcademicTitle" value="Не указано"/>
+                    <span asp-validation-for="AcademicTitle"></span>
+                </div>
+
+                <div>
+                    <label asp-for="BirthDay"></label><br />
+                    <input type="date" asp-for="BirthDay"/>
+                    <span asp-validation-for="BirthDay"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Login"></label><br />
+                    <input type="text" asp-for="Login"/>
+                    <span asp-validation-for="Login"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Password"></label><br />
+                    <input type="text" asp-for="Password"/>
+                    <span asp-validation-for="Password"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Role"></label><br />
+                    <select asp-for="Role">
+                        <option value=""></option>
+                        <option value="admin">Администратор</option>
+                        <option value="dispatcher">Диспетчер</option>
+                    </select>
+                    <span asp-validation-for="Role"></span>
+                </div>
+                <input type="hidden" asp-for="DepartmentId" value="@ViewBag.Id"> <br />
+            <input  type="submit" value="Отправить данные"><br />
+            
+        </form>

@@ -1,0 +1,83 @@
+@{
+    Teacher obj = ViewBag.obj;
+}
+@section reportBlock {}
+
+@model Teacher;
+    <form style="margin-left: 25px;" asp-controller="Teacher" asp-action="edit" method="POST" >
+            <div asp-validation-summary="ModelOnly" ></div>
+                
+                <div>
+                    <label asp-for="Name"></label><br />
+                    <input type="text" asp-for="Name" value="@obj.Name"/>
+                    <span asp-validation-for="Name"></span>
+                </div>
+                
+                <div>
+                    <label asp-for="Surname"></label><br />
+                    <input type="text" asp-for="Surname" value="@obj.Surname"/>
+                    <span asp-validation-for="Surname"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Patronymic"></label><br />
+                    <input type="text" asp-for="Patronymic" value="@obj.Patronymic"/>
+                    <span asp-validation-for="Patronymic"></span>
+                </div>
+
+                <div>
+                    <label asp-for="PhoneNumber"></label><br />
+                    <input type="text" asp-for="PhoneNumber" value="@obj.PhoneNumber"/>
+                    <span asp-validation-for="PhoneNumber"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Email"></label><br />
+                    <input type="text" asp-for="Email" value="@obj.Email"/>
+                    <span asp-validation-for="Email"></span>
+                </div>
+
+                <div>
+                    <label asp-for="AcademicDegree"></label><br />
+                    <input type="text" asp-for="AcademicDegree" value="@obj.AcademicDegree"/>
+                    <span asp-validation-for="AcademicDegree"></span>
+                </div>
+
+                <div>
+                    <label asp-for="AcademicTitle"></label><br />
+                    <input type="text" asp-for="AcademicTitle" value="@obj.AcademicTitle" />
+                    <span asp-validation-for="AcademicTitle"></span>
+                </div>
+
+                <div>
+                    <label asp-for="BirthDay"></label><br />
+                    <input type="date" asp-for="BirthDay" value="@obj.BirthDay"/>
+                    <span asp-validation-for="BirthDay"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Login"></label><br />
+                    <input type="text" asp-for="Login" value="@obj.Login"/>
+                    <span asp-validation-for="Login"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Password"></label><br />
+                    <input type="text" asp-for="Password" value="@obj.Password"/>
+                    <span asp-validation-for="Password"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Role"></label><br />
+                    <select asp-for="Role">
+                        <option value="@obj.Role">@obj.Role</option>
+                        <option value="admin">Администратор</option>
+                        <option value="dispatcher">Диспетчер</option>
+                    </select>
+                    <span asp-validation-for="Role"></span>
+                </div>
+                <input type="hidden" asp-for="DepartmentId" value="@obj.DepartmentId">
+                <input type="hidden" asp-for="Id" value="@obj.Id">
+            <input  type="submit" value="Отправить данные"><br />
+            
+        </form>

@@ -1,0 +1,47 @@
+@{
+    List<Teacher> list = Model.list;
+}
+@section reportBlock {
+    <div  style="float: right;background-size: 80% 80%;width:auto;">
+        <a class="waves-effect waves-teal btn-flat" style="color:#fff" href="/Teacher/add/1"> Добавить учителя</a>
+    </div>
+}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Имя</th>
+                <th>Роль</th>
+                <th>Номер телефона</th>
+                <th>Academi Degree</th>
+                <th>Academi Title</th>
+                <th><a href="/Teacher/add/@Model.Id">Добавить работника</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(list.Count() != 0){
+                @for (int i = 0; i < list.Count(); i++)
+                {
+                    int index = i+1;
+                    string remove = "/Teacher/remove?dep=" + Model.Id + "&Id=" + list[i].Id;
+                    string edit = "/Teacher/edit?dep=" + Model.Id + "&Id=" + list[i].Id;
+
+                    <tr>
+                        <td>@index. @list[i].FullName</td>    
+                        <td>@list[i].Role</td>
+                        <td>@list[i].PhoneNumber</td>
+                        <td>@list[i].AcademicDegree</td>
+                        <td>@list[i].AcademicTitle</td>
+                        <td><a href="@edit">Изменить</a> - <a href="@remove">Удалить</a></td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+@section Scripts{
+    <script>
+        $($(document).ready(() => {
+            $("#title").html("Список учителей")
+        }))
+    </script>
+}

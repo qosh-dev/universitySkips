@@ -1,0 +1,68 @@
+﻿@model Group;
+@section CSS{
+    <style>
+        li{
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+}
+@{
+    
+    @* string template = "/Skip/getTemplate/" + Model.Id; *@
+
+}
+
+            <hr />
+            <form style="padding: 20px" asp-controller="Skip" asp-action="setSkips" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" ></div>
+                <p style="font-size: 18px; margin:auto 15%; padding-bottom: 25px">
+                    <b> Форма для добавления пропусков в группу :</b>
+                    @Model.Name <span style="font-size: small;">(@Model.EduFrom)</span>  
+                    <span style="font-size: 12px;">
+                        @* <a href= @template>Скачать шаблон</a> *@
+                    </span>    
+                </p>
+                <ul style="margin-left: 20px;" >
+                    <li>Год обучения : 
+                        <select name="eduYear" style="width: 40px;">
+                        @for (int i = 1; i < Model.EduDuration +1; i++)
+                        {
+                            @if(i == Model.Course){
+                                <option selected value="@i">@i</option>     
+                            } else{
+                                <option  value="@i">@i</option>
+                            }
+                        }
+                        </select>    
+                    </li>
+
+                    <li>Семестр : 
+                        @if(Model.Semester == 1){
+                            <label for="r1" ><input id="r1" type="radio" checked name="semester" value="@Model.Semester">Первый</label>
+                            <label for="r2" ><input id="r2" type="radio" name="semester" value="2"> Второй</label>
+                        } else{
+                            <label for="r1" ><input id="r1" type="radio" name="semester" value="1">Первый</label>
+                            <label for="r2" ><input id="r2" type="radio" checked name="semester" value="@Model.Semester">Второй</label>
+                        }
+                    </li>
+
+                    <li id="month">
+                    </li>
+
+                </ul>
+                
+
+                <p></p>
+                <p style="font-size: 13px;">Выберите файл</p>
+                <input style="" type="hidden" name="groupId" value="@Model.Id">
+                <input style="float: left;margin-right: 15px;" type="file" name="file" id="id">
+                
+                <input style="float: left; margin-left: 15px; " type="submit"  value="Отправить в базу">
+            </form>
+            <hr />
+
+
+@section Scripts{
+    <script src="~/js/groupByDep.js" asp-append-version="true"></script>
+}

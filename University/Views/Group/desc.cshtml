@@ -1,0 +1,258 @@
+@{
+    List<MonthReport> skips = Model.Skips;
+    List<int> idList = Model.IdList; 
+    List<string> names = Model.Names;
+    List<string> bb = Model.BB;
+    string href = $"/Skip/Report?id={@Model.desc.Id}&eduYear={DateTime.Now.Year - Model.desc.EduStart + 1}&semester={lib.Methods.GetSemestry()}";     
+    string hrefY = $"/Skip/Report?id={@Model.desc.Id}&eduYear={DateTime.Now.Year - Model.desc.EduStart + 1}&semester={lib.Methods.GetSemestry()}&fromCount=" + 16;
+    string hrefR = $"/Skip/Report?id={@Model.desc.Id}&eduYear={DateTime.Now.Year - Model.desc.EduStart + 1}&semester={lib.Methods.GetSemestry()}&fromCount=" + 35;     
+    ViewGroupDesc group = Model.desc;
+    int course = Model.EduYear;
+}
+
+
+@section reportBlock {
+    
+    <div id="navR" style="float: right;background-size: 80% 80%;">
+
+
+        <a class="waves-effect waves-teal btn-flat" data-toggle="modal" data-target="#grMethodsModal" style="background-image: url(/Img/System/Edit_icon-icons.com_55921.svg);"></a>
+        <a class="waves-effect waves-teal btn-flat" onclick="Report()" id="report" key="@group.Id" eduyear="@course" semester="@Model.semester" style="background-image: url(/Img/System/box_arrow_in_down_icon_160379.svg);"></a> 
+        <a class="waves-effect waves-teal btn-flat" data-toggle="modal" data-target="#exampleModal" style="background-image: url(/Img/System/send1.svg);"></a>
+    </div> 
+}
+
+<style>
+    p{
+        font-size: 12px;
+    }
+</style>
+<div style="display: none;" id="hidden" key="@group.Id" value="@course" ss="@Model.semester"></div>
+
+<div id="students"">
+    <table class="table table-hover" >
+        <thead>
+            <tr>
+                <th>Ф.И.О</th>
+                <th>Без причины</th> 
+                <th>По причине</th>
+                <th>Итог</th>
+                <th>Поддержка</th>
+                <th>Функции</th>
+            </tr>
+        </thead>
+        <tbody>
+        @for (int i = 0; i < skips.Count(); i++){
+            <tr>
+                <td>
+                    <a href="/Student/desc/@idList[i]" >@names[i]</a>
+                </td>
+                <td>@skips[i].count</td>
+                <td >@skips[i].sreason</td>
+                <td>@skips[i].total</td>
+                <td>@bb[i]</td>
+                <td>
+                    <a class="addSReasonR" cc="@Model.EduYear" value="@names[i]" key=@idList[i] data-toggle="modal" data-target="#referenceModal">Добавить справку</a>
+                </td>
+            </tr>
+        } 
+        </tbody>
+    </table>
+</div>
+
+
+
+
+<!-- Modal -->
+<div style="background-color: rgb(80, 64, 64);position: absolute; top: 50px;height : 55%" class="modal fade" id="referenceModal" tabindex="-1" role="dialog" aria-labelledby="referenceModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="referModalTitle">Форма для добавления справки </h5>
+      </div>
+      <div class="modal-body">
+        <form id="referModal">
+            
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+        <button onclick="sendRefer()" id="setSkip" type="button" class="btn btn-primary">Отправить в базу</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="background-color: rgb(80, 64, 64);position: absolute; top: 50px;height : max-content" class="modal fade" id="grMethodsModal" tabindex="-1" role="dialog" aria-labelledby="grMethodsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="referModalTitle">Методы группы : @group.Name</h5>
+      </div>
+      <div class="modal-body">
+        <a class="waves-effect waves-light btn" href='/Group/AddGroup/@group.DepartmentId'> Добавить новую группу</a>
+        <a class="waves-effect waves-light btn" href='/Student/list/@group.Id'> Студенты</a>
+        <a class="waves-effect waves-light btn" href='/Group/Edit/@group.Id'>Изменить</a> 
+        <a class="waves-effect waves-light btn" href='/Group/Remove/@group.Id' >Удалить</a>
+      </div>
+      <div id="content"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Curator ModaL -->
+<div style="background-color: rgb(80, 64, 64);position: absolute; top: 50px;height : max-content" class="modal fade" id="CuratorModal" tabindex="-1" role="dialog" aria-labelledby="CuratorModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="referModalTitle">Методы группы : @group.Name</h5>
+      </div>
+      <div class="modal-body" id="CuratorBody">
+        
+      </div>
+      <div id="content"></div>
+    </div>
+  </div>
+</div>
+
+              
+
+ 
+@section footer{
+    
+    <footer style="display: inline;">
+        
+        @if(Model.elder != null){
+            <div style="float: left;"id="cDir" >
+                @* <div id="cDir"> </div> *@
+                <a href="/Student/desc/@Model.elder.Id" > Староста : @Model.elder.FullName</a>
+            </div>
+        } else {
+            <div style="float: left;" >
+                <a  > Староста не указан</a>
+            </div>
+        }
+            <div style="float: right;">
+                <form id="descByYear" style="margin-right:25px;height: 16px;"> Семестр :
+                    @if(@Model.semester == 1){
+                        <label >
+                            <input name="semester" onclick="setSemester(1)" value="1" type="radio" checked  />
+                            <span style="font-size: 12px; color:#fff">1</span>
+                        </label>
+                        <label >
+                            <input name="semester" onclick="setSemester(2)" value="2" type="radio"  />
+                            <span style="font-size: 12px; color:#fff">2</span>
+                        </label>
+                    } else {
+                        <label >
+                            <input name="semester" onclick="setSemester(1)" value="1" type="radio"  />
+                            <span style="font-size: 12px; color:#fff">1</span>
+                        </label>
+                        <label >
+                            <input name="semester" onclick="setSemester(2)" value="2" type="radio" checked  />
+                            <span style="font-size: 12px; color:#fff">2</span>
+                        </label>
+                    }
+                    
+                    <span style="margin-left: 40px;">Курс :</span>
+                     
+                    <input type="hidden" name="Id" value="@group.Id">
+                    @for (int i = 0; i < group.EduDuration; i++)
+                    {
+                        if(course == i+1){
+                            <label >
+                                <input name="eduYear" onclick="descByYear()" value="@(i+1)" type="radio" checked  />
+                                <span style="font-size: 12px; color:#fff">@(i+1)</span>
+                            </label>
+                        } else {
+                            <label>
+                                <input name="eduYear" onclick="descByYear()" value="@(i+1)" type="radio"  />
+                                <span style="font-size: 12px; color:#fff">@(i+1)</span>
+                            </label>
+                        }
+                    }
+                </form>
+            </div>
+        
+        </footer>
+}
+
+@section Scripts{
+    <script>
+        var semester = @lib.Methods.GetSemestry();
+        function setSemester(index){
+            semester = index;
+            descByYear()
+        }
+        function descByYear() {
+            var data = $("#descByYear").serializeArray();
+            var href = "/Group/desc?"
+            data.forEach(el => {
+                href += el.name + "=" + el.value + "&";
+            });
+            $(location).attr("href", href.substr(0,href.length -1))
+        }
+        function initPage(){
+            //getCuratorData
+            $.ajax({
+                url : `/Teacher/get`,
+                type: "GET",
+                data : {Id : @group.CuratorId},
+                success : data => {
+                    try{
+                        $("#cDir").prepend(`<a style="margin-right:15px;margin-left:5px" id="CuratorLink" data-toggle="modal" data-target="#CuratorModal" >  Куратор : ${data.fullName}</a>`);
+                        $("#CuratorBody").append(`<p>Ф.И.О : ${data.fullName}</p>`)
+                        $("#CuratorBody").append(`<p>Электронная почта : ${data.email}</p>`)
+                        $("#CuratorBody").append(`<p>Номер телефона : ${data.phoneNumber}</p>`)
+                    }catch(e){
+                        print(e)
+                    }
+                },
+                error : error => {
+                    console.log(error)
+                }
+            })
+        }
+        function sendRefer(){
+            
+            var fd = new FormData;
+            var data = $('#referModal').serializeArray();
+
+            fd.append('files', $("#files").prop('files')[0]);
+            $.each(data,function(){
+                fd.append(this.name,this.value);
+
+            });
+             $.ajax({
+                url: '/Skip/setSReason',
+                data: fd,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                success: function (data) {
+                    M.toast({html : data});
+                }, error: data => {
+                    M.toast({html : data});
+                }
+            }); 
+        }
+        function redirect(path){
+            $.ajax({
+                url: path,
+                type: 'GET',
+                success: () => {
+                    $("#grMethodsModal #content").load(path);
+                }, error: data => {
+                    M.toast({html : data});
+                }
+            })
+        }
+        $($(document).ready(() => {
+            initPage()
+            Modal($("#hidden").attr("key"), $("#hidden").attr("value"))
+        }))
+    </script>
+    <script src="~/js/main.js" asp-append-version="true"></script>
+    <script src="~/js/desc.js" asp-append-version="true"></script>
+}

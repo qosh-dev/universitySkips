@@ -1,0 +1,241 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  /* min-height: 100%; */
+  outline: 0px;
+  /* line-height: 0px; */
+}
+
+body {
+  /* Margin bottom by footer height */
+  /* margin-bottom: 60px; */
+  text-decoration: none;
+  color: #fff;
+  background-color: rgb(48, 38, 38);
+  /* height: 100%; */
+}
+select{
+  display: block;
+  height: 5vh;
+  margin: auto 10px;
+  background-color:  rgb(73, 59, 59);
+}
+
+#content{
+  width: 100%;
+}
+  #content #nav{
+    background-color: rgb(73, 59, 59);
+    height: 5%;
+  }
+    #titleBlock{
+      float: left; 
+      margin-left: 15px;
+      
+    }
+    #titleBlock #title{
+      font-size: 24px;
+    }
+    #navR{
+      padding: 5px 0px;
+    }
+      #navR a {
+        width: 70px;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+  #content #secondaryNav{
+    background-color: rgb(59, 48, 48);
+    height: 2%;
+  }
+
+
+#sideBar{
+  width: 3%;
+  background-color: rgb(80, 64, 64);
+  /* padding-top: 50px; */
+  height: 765px;
+  padding: 0 1.5px;
+  border-right: 1.5px solid rgb(54, 51, 51);
+}
+  
+  .ii{
+    width: 3%;
+    height: 45px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .active{
+    border-left: 1.5px solid snow;
+    background-color: rgb(109, 87, 87);
+  }
+
+  footer {
+    position: fixed;
+    bottom: 0;
+    right: 0px;
+    width: 100%;
+    white-space: nowrap;
+    height: 17.5px;
+    background-color: #0366d6;
+    font-size: 10px;
+  }
+
+  #secondarySideBar1{
+    width: 100%;
+    height: 100%;
+    border-right: 1.5px solid teal;
+
+  }
+  #gf{
+    color: aqua;
+    font-size: small;
+  }
+  .modal .modal-footer {
+    background-color: rgb(80, 64, 64);
+  }
+
+p{
+  font-size: 12px;
+  color: #fff;
+}
+th{
+  font-size: 12px;
+  color: #fff;
+}
+td,th{
+  padding: 5px 2px;
+}
+a{
+  height: 5px;
+  color: azure;
+}
+tr :hover{
+  background-color: rgba(72, 65, 65, 0.476);
+}
+td{
+  color: #fff;
+  font-size: 12px;
+}
+p{
+  color: #fff;
+  font-size: 12px;
+}
+li{
+  color: #fff;
+  font-size: 13px;
+}
+
+[type="radio"]:not(:checked)+span, [type="radio"]:checked+span{
+  display: inline;
+  height: 16px;
+  width: 16px;
+  line-height: 0px;
+  padding-left: 25px;
+
+}
+[type="radio"]+span:before, [type="radio"]+span:after{
+  height: 11px;
+  width: 11px;
+  margin-right: -100px;
+}
+[type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:before, [type="radio"].with-gap:checked+span:after {
+  border: 2px solid #ffff;
+}
+[type="radio"]:not(:checked)+span:before, [type="radio"]:not(:checked)+span:after {
+  border: 2px solid rgb(169, 166, 166);
+}
+
+/* Drop down  */
+
+
+/* Student Desc  */
+
+.month{
+  /* width: 15vw; */
+  border-right: 1.5px solid #000000;
+  /* display:flex;
+  justify-content: center; */
+  border-bottom: 1.5px solid #000000;
+  width: max-content;
+  height: max-content;
+}
+  .month .child{
+    padding: 5px;
+    border-top: 1.5px solid #000000;
+    border-right: 1.5px solid #000000;
+  }
+
+#year{
+  width: 15%;
+  display:flex;
+  justify-content: center;
+  border-right: 1.5px solid #000000;
+  border-bottom: 1.5px solid #000000;
+
+}
+#total{
+  width: 25%;
+  display:flex;
+  justify-content: center;
+  border-left: 1.5px solid #000000;
+  border-bottom: 1.5px solid #000000;
+}
+
+/* Student Desc  */

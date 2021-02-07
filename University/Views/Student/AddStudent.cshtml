@@ -1,0 +1,178 @@
+@{
+    string[] groups = ViewBag.Groups;
+    int[] keys = ViewBag.Keys;
+}
+@section CSS {
+    <style>
+        #sideBar{
+            height: auto;
+        }
+    </style>
+}
+
+
+
+    <div style="width: 30vw; padding : 10px; position : fixed; border-right: 1.5px solid #000">
+        <h5>Эта страница предназначена для добавления новых групп.</h5>
+        <h6>Предоставляется 2 метода добавления данных </h6>
+        <ol>
+            <li>Добавление одного студента.
+                <p>Добавление через форму, вы должны заполнить все нижние поля и отправить данные</p>
+            </li>
+            <li>Добавление нескольких студентов.
+                <p>Вы должны выбрать группу и выбрать Excel файл с данными (нужной формы)</p>
+                <p><a href="/Student/template">Скачать шаблон</a></p>
+                <p><a href="/Img/System/AddStudentExcel.png">Для просмотра примера Excel файла пройдите по ссылке</a></p>
+            </li>
+        </ol>
+    </div>
+<div id="body" style="width: 70vw;">
+    <div id='ExcelForm' style="width: 70vw; height: 30%; margin-left: 30vw; padding: 10px; border: 1.5px solid #000">
+        <h4>Форма для добавления Excel файла</h4>
+        <div id="excelFile"> 
+            <form style="display: flex;" asp-controller="Student"  asp-action="AddStudentRange" method="POST" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" ></div>
+                <div style="display: flex;">
+                    @* Выберите Excel файл <br /> *@
+                    @* <input type="file" name="file" id="groupId" style="margin-right: 5%;" value="Excel файл"/> *@
+
+                    <div class="file-field input-field">
+                        <div class="btn">
+                            <span>Выберите файл</span>
+                            <input type="file" name="file" id="groupId">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="groupId" value="@ViewBag.Id">
+                    <input class="btn waves-effect waves-light grey lighten-2" style="margin-top: 5%;" type="submit" value="Отправить данные">
+
+
+                </div>
+            </form>        
+        </div>
+    </div>
+
+    @model AddStudentForm;
+
+    <div id="studentForm" style="width: 70vw; margin-left: 30vw; padding: 10px; border: 1.5px solid #000">
+        <h4>Форма для добавления одного студента</h4>
+        <form asp-controller="Student" asp-action="add" method="POST" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" ></div>
+            <div id="Fullname" style="display: flex; justify-content: space-evenly; border-bottom: 1.5px solid #000; padding: 5px" >
+                <div>
+                    <label asp-for="Name"></label><br />
+                    <input type="text" asp-for="Name" placeholder="Введите имя" />
+                    <span asp-validation-for="Name"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Surname"></label><br />
+                    <input type="text" asp-for="Surname" placeholder="Введите фамилию" />
+                    <span asp-validation-for="Surname"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Patronymic"></label><br />
+                    <input type="text" asp-for="Patronymic" placeholder="Введите Отчество" />
+                    <span asp-validation-for="Patronymic"></span>
+                </div>
+            </div>
+            
+            <div style="display: flex; justify-content: space-evenly; border-bottom: 1.5px solid #000;padding: 5px">
+                <div>
+                    <label asp-for="PhoneNumber"></label><br />
+                    <input type="text" asp-for="PhoneNumber" placeholder="Введите номер телефона" />
+                    <span asp-validation-for="PhoneNumber"></span>
+                </div>
+                
+                <div>
+                    <label asp-for="Email"></label><br />
+                    <input type="text" asp-for="Email" placeholder="Введите адрес электронной почты" />
+                    <span asp-validation-for="Email"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Address"></label><br />
+                    <input type="text" asp-for="Address" placeholder="Введите адрес" />
+                    <span asp-validation-for="Address"></span>
+                </div>
+
+                <div>
+                    <label asp-for="RecordBookNumber"></label><br />
+                    <input type="text" asp-for="RecordBookNumber" placeholder="Введите код" />
+                    <span asp-validation-for="RecordBookNumber"></span>
+                </div>
+            </div>
+            
+            <div style="display: flex; justify-content: space-evenly; border-bottom: 1.5px solid #000;padding: 5px">
+                <div>
+                    <label asp-for="Birthday"></label><br />
+                    <input type="date" asp-for="Birthday" placeholder="Выберите дату рождения" />
+                    <span asp-validation-for="Birthday"></span>
+                </div>
+
+
+                <div>
+                    @* <label asp-for="Img"></label><br /> *@
+                    <div class="file-field input-field">
+                        <div class="btn">
+                            <span>Выберите фотографию</span>
+                            <input type="file" name="file" id="groupId">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+                    @* <input type="file" name="file" asp-for="Img" placeholder="Выберите фотографию" /> *@
+                    <span asp-validation-for="Img"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Contract"></label><br />
+
+                    <p>
+                        <label>
+                            <input name="Enable" asp-for="Contract" type="radio" value="true" checked />
+                            <span>Договорник</span>
+                        </label>
+                        </p>
+                        <p>
+                        <label>
+                            <input name="Enable" asp-for="Contract" value="false" type="radio" />
+                            <span>Бюджетник</span>
+                        </label>
+                    </p>
+                    
+                    <span asp-validation-for="Contract"></span>
+                </div>
+            </div>
+
+            <div>
+                <label asp-for="Note"></label><br />
+                <input type="text" asp-for="Note"  />
+                <span asp-validation-for="Note"></span>
+            </div>
+
+            <div>
+                <label asp-for="BB"></label><br />
+                <input type="text" asp-for="BB"  />
+                <span asp-validation-for="BB"></span>
+            </div> <br>
+
+            <input  type="hidden" name="GroupId" value="@ViewBag.Id">
+            <input class="btn waves-effect waves-light" type="submit" value="Отправить данные">
+            
+        </form>
+    </div>
+
+</div>
+@section Scripts {
+    <script>
+         $($(document).ready(() => {
+            $("#title").html("Форма добавления данных")
+        }))
+    </script>
+}

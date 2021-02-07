@@ -1,0 +1,71 @@
+@model ViewGroupDesc ;
+<style>
+    p{
+        font-size: 12px;
+    }
+</style>
+
+@section reportBlock {
+    
+    <div id="navR" style="float: right;background-size: 80% 80%;">
+
+
+        <a class="waves-effect waves-teal btn-flat" data-toggle="modal" data-target="#grMethodsModal" style="background-image: url(/Img/System/Edit_icon-icons.com_55921.svg);"></a>
+        @* <a class="waves-effect waves-teal btn-flat" onclick="Report()" id="report" key="@Model.Id" eduyear="@Model" semester="@Model.semester" style="background-image: url(/Img/System/box_arrow_in_down_icon_160379.svg);"></a>  *@
+        @* <a class="waves-effect waves-teal btn-flat" data-toggle="modal" data-target="#exampleModal" style="background-image: url(/Img/System/send1.svg);"></a> *@
+    </div> 
+}
+
+<div id="students" style="padding: 20px; width: 70vw; float : right;  margin-bottom: 50px">
+    <table class="table table-hover" >
+        <thead>
+            <tr>
+                <th>Ф.И.О</th>
+                <th>Количество пропусков</th>
+                <th>Пропуски по причине</th>
+                <th>Пропуски в итоге</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+
+
+<div style="background-color: rgb(80, 64, 64);position: absolute; top: 50px;height : max-content" class="modal fade" id="grMethodsModal" tabindex="-1" role="dialog" aria-labelledby="grMethodsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="referModalTitle">Методы группы : @Model.Name</h5>
+      </div>
+      <div class="modal-body">
+        <a class="waves-effect waves-light btn" href='/Group/AddGroup/@Model.DepartmentId'> Добавить новую группу</a>
+        <a class="waves-effect waves-light btn" href='/Student/list/@Model.Id'> Студенты</a>
+        <a class="waves-effect waves-light btn" href='/Group/Edit/@Model.Id' >Изменить</a> 
+        <a class="waves-effect waves-light btn" href='/Group/Remove/@Model.Id' >Удалить</a>
+      </div>
+      <div id="content"></div>
+      @* <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+      </div>  *@
+    </div>
+  </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        function redirect(path){
+            $.ajax({
+                url: path,
+                type: 'GET',
+                success: () => {
+                    $("#grMethodsModal #content").load(path);
+                }, error: data => {
+                    M.toast({html : data});
+                }
+            })
+        }
+    </script>
+}

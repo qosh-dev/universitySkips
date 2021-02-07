@@ -1,0 +1,73 @@
+@{
+    var r16 = new {
+        group = (List<Group>)Model.R16.id,
+        data = (List<ReportToWorkSheet>)Model.R16.data
+    };
+    var r35 = new {
+        group = (List<Group>)Model.R35.id,
+        data = (List<ReportToWorkSheet>)Model.R35.data
+    };
+}
+
+@if (r16.group.Count() != 0){
+    <h4 style="float: right; margin-right:15px">Студенты в желтом списке</h4>
+
+    <table class="table table-hover" style="margin-bottom: 50px">
+        <thead>
+            <tr>
+                <td>Название группы</td>
+                <td>Количество штрафников</td>
+                <td>Данные</td>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < r16.data.Count(); i++)
+            {
+                var href = $"/Skip/Report?id={@r16.group[i].Id}&eduYear={DateTime.Now.Year - r16.group[i].EduFrom + 1}&semester={lib.Methods.GetSemestry()}&fromCount=" + 16;
+                <tr>
+                    <td>
+                        <a asp-controller="Group" asp-action="desc" asp-route-Id="@r16.group[i].Id" >@r16.group[i].Name</a>
+                    </td>
+
+                    <td>@r16.data[i].data.Count()</td>
+
+                    <td>
+                        <a href="@href">Отчет</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+
+
+@if (r35.group.Count() != 0){
+    <h4 style="float: right; margin-right:15px">Студенты в красном списке</h4>
+    <table class="table table-hover" style="margin-bottom: 50px">
+        <thead>
+            <tr>
+                <td>Название группы</td>
+                <td>Количество штрафников</td>
+                <td>Данные</td>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < r35.data.Count(); i++)
+            {
+                var href = $"/Skip/Report?id={@r35.group[i].Id}&eduYear={DateTime.Now.Year - r35.group[i].EduFrom + 1}&semester={lib.Methods.GetSemestry()}&fromCount=" + 35;
+                <tr>
+                    <td>
+                        <a asp-controller="Group" asp-action="desc" asp-route-Id="@r35.group[i].Id" >@r35.group[i].Name</a>
+                    </td>
+
+                    <td>@r35.data[i].data.Count()</td>
+
+                    <td>
+                        <a href="@href">Отчет</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>     
+}

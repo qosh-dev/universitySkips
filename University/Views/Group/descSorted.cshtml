@@ -1,0 +1,60 @@
+@{
+    List<MonthReport> skips = Model.Skips;
+    List<int> idList = Model.IdList; 
+    List<string> names = Model.Names;
+    List<string> bb = Model.BB;
+    ViewGroupDesc desc = Model.desc;
+}
+@section reportBlock{
+    <div id="navR" style="float: right;">
+        <a class="waves-effect waves-teal btn-flat" onclick="Report()" style="background-image: url(/Img/System/box_arrow_in_down_icon_160379.svg);"></a>
+    </div>
+}
+<div id="students"">
+    <table class="table table-hover" >
+        <thead>
+            <tr>
+                <th>Ф.И.О</th>
+                <th>Без причины</th> 
+                <th>По причине</th>
+                <th>Итог</th>
+                <th>Поддержка</th>
+            </tr>
+        </thead>
+        <tbody>
+        @for (int i = 0; i < skips.Count(); i++){
+            <tr>
+                <td>
+                   <a href="/Student/desc/@idList[i]" >@names[i]</a>
+                </td>
+                <td>@skips[i].count</td>
+                <td >@skips[i].sreason</td>
+                <td>@skips[i].total</td>
+                <td>@bb[i]</td>
+            </tr>
+        } 
+        </tbody>
+    </table>
+</div>
+@section Scripts{
+    <script>
+        $($(document).ready(() => {
+            $("#title").html("Группа : @desc.Name")
+        }))
+        function Report() {
+            var reportHref = "/Skip/Report?Id=@desc.Id&eduYear=@(DateTime.Now.Year - desc.EduStart + 1)&semester=@lib.Methods.GetSemestry()&fromCount=@Model.type"
+            $.ajax({
+                url: reportHref,
+                beforeSend: () => {
+                    M.toast({ html: "Генерируется отчет" })
+                },
+                success: () => {
+                    $(location).attr("href", reportHref)
+                },
+                error: () => {
+                    M.toast({ html: "Ошибка в запросе" })
+                }
+            })
+        }
+    </script>
+}

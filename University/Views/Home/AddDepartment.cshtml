@@ -1,0 +1,52 @@
+
+@model Department;
+
+
+@{
+    Teacher[] teachers = ViewBag.Teachers;
+}
+
+@section desc {
+    <div style="border-right: 1.5px solid black; padding: 10px; float: left;  width: 30vw; height: 50vh; position: fixed">
+        <h3>Форма для добавления кафедры в систему</h3>
+        <p>Для добавления вы должны заполнить поля с права</p>
+        <ul>
+            <li>Укажите название кафедры</li>
+            <li>Выберите Заведующего кафедры (поле не обязательно вы вполне можете указать его пойже)</li>
+            <li>Укажите описание кафедры</li>
+        </ul>
+        
+    </div>
+}
+
+
+<div id="body" style="  width: 70vw; margin-left: 30vw; padding: 10px">
+    <form asp-controller="Home" asp-action="AddDepartment" method="POST" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" ></div>
+        <div>
+            <label asp-for="Name"></label><br />
+            <input type="text" asp-for="Name" />
+            <span asp-validation-for="Name"></span>
+        </div>
+
+        <div>
+            <label asp-for="headOfDepId"></label><br />
+            <select id="group" asp-for="headOfDepId" style="margin: auto 10px">
+                <option value=""></option>
+                @for (int i = 0; i < teachers.Count(); i++)
+                    {
+                    <option value="@teachers[i].Id">@teachers[i].FullName</option>
+                    }
+                </select>
+            <span asp-validation-for="headOfDepId"></span>
+        </div>
+
+        <div>
+            <label asp-for="Note"></label><br />
+            <input type="text" asp-for="Note" />
+            <span asp-validation-for="Note"></span>
+        </div>
+        <input type="submit" value="Отправить данные">
+    </form>
+</div>
+

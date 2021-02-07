@@ -1,0 +1,12 @@
+C:\Users\_qosh\Documents\C#\service.Skip\bin\Debug\netcoreapp3.1\service.Skip.deps.json
+C:\Users\_qosh\Documents\C#\service.Skip\bin\Debug\netcoreapp3.1\service.Skip.dll
+C:\Users\_qosh\Documents\C#\service.Skip\bin\Debug\netcoreapp3.1\service.Skip.pdb
+C:\Users\_qosh\Documents\C#\service.Skip\bin\Debug\netcoreapp3.1\service.Main.dll
+C:\Users\_qosh\Documents\C#\service.Skip\bin\Debug\netcoreapp3.1\service.Main.pdb
+C:\Users\_qosh\Documents\C#\service.Skip\obj\Debug\netcoreapp3.1\service.Skip.csprojAssemblyReference.cache
+C:\Users\_qosh\Documents\C#\service.Skip\obj\Debug\netcoreapp3.1\service.Skip.AssemblyInfoInputs.cache
+C:\Users\_qosh\Documents\C#\service.Skip\obj\Debug\netcoreapp3.1\service.Skip.AssemblyInfo.cs
+C:\Users\_qosh\Documents\C#\service.Skip\obj\Debug\netcoreapp3.1\service.Skip.csproj.CoreCompileInputs.cache
+C:\Users\_qosh\Documents\C#\service.Skip\obj\Debug\netcoreapp3.1\service.Skip.csproj.CopyComplete
+C:\Users\_qosh\Documents\C#\service.Skip\obj\Debug\netcoreapp3.1\service.Skip.dll
+C:\Users\_qosh\Documents\C#\service.Skip\obj\Debug\netcoreapp3.1\service.Skip.pdb

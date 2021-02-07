@@ -1,0 +1,15 @@
+C:\Users\_qosh\Documents\C#\service.Main\bin\Debug\netcoreapp3.1\service.Main.deps.json
+C:\Users\_qosh\Documents\C#\service.Main\bin\Debug\netcoreapp3.1\service.Main.dll
+C:\Users\_qosh\Documents\C#\service.Main\bin\Debug\netcoreapp3.1\service.Main.pdb
+C:\Users\_qosh\Documents\C#\service.Main\obj\Debug\netcoreapp3.1\service.Main.csprojAssemblyReference.cache
+C:\Users\_qosh\Documents\C#\service.Main\obj\Debug\netcoreapp3.1\service.Main.AssemblyInfoInputs.cache
+C:\Users\_qosh\Documents\C#\service.Main\obj\Debug\netcoreapp3.1\service.Main.AssemblyInfo.cs
+C:\Users\_qosh\Documents\C#\service.Main\obj\Debug\netcoreapp3.1\service.Main.dll
+C:\Users\_qosh\Documents\C#\service.Main\obj\Debug\netcoreapp3.1\service.Main.pdb
+C:\Users\_qosh\Documents\C#\service.Main\bin\Debug\netcoreapp3.1\service.Main.runtimeconfig.json
+C:\Users\_qosh\Documents\C#\service.Main\bin\Debug\netcoreapp3.1\service.Main.runtimeconfig.dev.json
+C:\Users\_qosh\Documents\C#\service.Main\obj\Debug\netcoreapp3.1\service.Main.genruntimeconfig.cache
+C:\Users\_qosh\Documents\C#\service.Main\bin\Debug\netcoreapp3.1\Excel.dll
+C:\Users\_qosh\Documents\C#\service.Main\bin\Debug\netcoreapp3.1\Excel.pdb
+C:\Users\_qosh\Documents\C#\service.Main\obj\Debug\netcoreapp3.1\service.Main.csproj.CopyComplete
+C:\Users\_qosh\Documents\C#\service.Main\obj\Debug\netcoreapp3.1\service.Main.csproj.CoreCompileInputs.cache

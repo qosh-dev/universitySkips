@@ -1,0 +1,137 @@
+@{
+    ViewStudent desc = Model.desc;
+    string Contract = desc.Contract ? "Бютжетник" : "Договорник";
+    List<List<MonthReport>> skips = Model.skips;
+    List<string> headers = new List<string> {
+        "Без причины",
+        "По причине",
+        "Итог"
+        };
+    List<string> fSem = new List<string>{
+        "Сентябрь","Октябрь","Ноябрь","Декабрь"};
+    List<string> sSem = new List<string>{
+        "Февраль","Март","Апрель","Май","Июнь"};
+}
+
+@section CSS {
+    <style>
+        .refer{
+            font-size: small;
+            margin-left: 15px;
+        }
+        #sideBar{
+            height: 1380px;
+        }
+        #content {
+            width: 115%;
+        }
+        #content #nav {
+            height: 40px;
+        }
+        #content #secondaryNav {
+            height: 15px;
+        }
+    </style>
+}
+
+@section reportBlock {
+    <div id="navR" style="float: right;background-size: 80% 80%;">
+        <a class="waves-effect waves-teal btn-flat" data-toggle="modal" data-target="#studMethodsModal" style="background-image: url(/Img/System/Edit_icon-icons.com_55921.svg);"></a>
+    </div>
+}
+<div style="display: flex;">
+        <div style="width: 15% ;border-right:1.5px solid black;padding-left:5px">
+
+        <h6>Имя : @desc.Name<h6>
+        <p>Группа : 
+            <a asp-controller="Group" asp-action="desc" asp-route-Id="@desc.GroupId">@desc.Group</a>
+        </p>
+        <p>Курс : @desc.Course</p>
+        <p>Форма обучения : @desc.StudyForm</p>
+        <p>Студенческий билет № : @desc.RecordBookNumber</p>
+        <p>Номер телефона : @desc.PhoneNumber</p>
+        <p>Адрес : @desc.Address</p>
+        <p>День рождения : @desc.Birthday</p>
+        <p>Финансирование : @Contract</p>
+        <p>Уровень образования : @desc.EduLevel</p>
+        <p>Специальность : @desc.Speciality</p>
+        <p>Образование : от @desc.EduFrom до @desc.EduTo</p>
+    </div>
+
+    <div style="float:right; width: 82%" >
+        <div id="headers" >
+            @for (int i = 0; i < skips.Count(); i++)
+            {
+                <div style="margin-bottom: 10vh;">
+                    <div style="font-size: 16px;margin-left:35%">@(i+1) курс</div>
+                    <div style="width: max-content;">
+                        <div style="border-bottom:1.5px solid black;display:flex;justify-content: center;">1 Семестр  <a class="refer" href="/Skip/getrefer?grId=@desc.GroupId&course=@(i+1)&semester=1&id=@desc.Id">(Показать справки)</a></div>
+                        <div style="display: flex;">
+                            
+                                @for (int m = 0; m < fSem.Count(); m++)
+                                {
+                                    <div class="month">
+                                        <div style="display:flex;justify-content: center; border-bottom: 1.5px solid #000">@fSem[m]</div>
+                                        <div style="display: flex; border-bottom: 1.5px solid #000">
+                                            <div class="childhead1"  style="padding-left: 5px;padding-left:5px;border-right:1.5px solid #000; width:110px;border-right:1.5px solid black;">@headers[0]</div>
+                                            <div class="childhead1" style="padding-left: 5px;padding-left:5px;border-right:1.5px solid #000; width:110px;border-right:1.5px solid black;">@headers[1]</div>
+                                            <div class="childhead1" style="padding-left: 5px;padding-left:5px;width: 60px;;border-right:1.5px solid black;">@headers[2]</div>
+                                        </div>
+                                        <div style="display: flex;width:100%">
+                                            <div class="childNum"  style="padding-left: 5px;padding-left:5px;border-right:1.5px solid #000; width:110px;border-right:1.5px solid black;">@skips[i][m].count</div>
+                                            <div class="childNum" style="padding-left: 5px;padding-left:5px;border-right:1.5px solid #000; width:110px;border-right:1.5px solid black;">@skips[i][m].sreason</div>
+                                            <div class="childNum"  style="padding-left: 5px;padding-left:5px;width: 60px;;border-right:1.5px solid black;">@skips[i][m].total</div>
+                                        </div>
+                                    </div>    
+                                }
+                        </div>
+                    </div>
+                    <div style="width: max-content;margin-top:25px">
+                        <div style="border-bottom:1.5px solid black;display:flex;justify-content: center;">2 Семестр <a class="refer" href="/Skip/getrefer?grId=@desc.GroupId&course=@(i+1)&semester=2&id=@desc.Id">(Показать справки)</a></div>
+                        <div style="display: flex;">
+                            
+                                @for (int m = 0; m < sSem.Count(); m++)
+                                {
+                                    <div class="month">
+                                        <div style="display:flex;justify-content: center; border-bottom: 1.5px solid #000">@sSem[m]</div>
+                                        <div style="display: flex; border-bottom: 1.5px solid #000">
+                                            <div class="childhead1"  style="padding-left: 5px;padding-left:5px;border-right:1.5px solid #000; width:110px;border-right:1.5px solid black;">@headers[0]</div>
+                                            <div class="childhead2" style="padding-left: 5px;padding-left:5px;border-right:1.5px solid #000; width:110px;border-right:1.5px solid black;">@headers[1]</div>
+                                            <div class="childhead3"  style="padding-left: 5px;padding-left:5px;width: 60px;;border-right:1.5px solid black;">@headers[2]</div>
+                                        </div>
+                                        <div style="display: flex;width:100%">
+                                            <div class="childNum"  style="padding-left: 5px;padding-left:5px;border-right:1.5px solid #000; width:110px;border-right:1.5px solid black;">@skips[i][m+4].count</div>
+                                            <div class="childNum" style="padding-left: 5px;padding-left:5px;border-right:1.5px solid #000; width:110px;border-right:1.5px solid black;">@skips[i][m+4].sreason</div>
+                                            <div class="childNum"  style="padding-left: 5px;padding-left:5px;width: 60px;;border-right:1.5px solid black;">@skips[i][m+4].total</div>
+                                        </div>
+                                    </div>    
+                                }
+                        </div>
+                    </div>
+                </div>
+                    
+            }
+
+        </div>
+     
+                                
+        
+    </div>
+</div>
+
+
+
+<div style="background-color: rgb(80, 64, 64);position: absolute; top: 50px;height : max-content" class="modal fade" id="studMethodsModal" tabindex="-1" role="dialog" aria-labelledby="studMethodsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="referModalTitle">Методы </h5>
+      </div>
+      <div class="modal-body">
+        <a class="waves-effect waves-light btn" href='/Student/edit/@desc.Id'>Изменить данные о студенте</a> 
+        <a class="waves-effect waves-light btn" href='/Student/remove/@desc.Id' >Удалить</a>
+      </div>
+      <div id="content"></div>
+    </div>
+  </div>
+</div>

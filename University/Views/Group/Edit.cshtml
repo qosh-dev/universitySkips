@@ -1,0 +1,167 @@
+@{
+    Department department = ViewBag.Department;
+    List<string> edulevel = ViewBag.EduLevel;
+    List<string> specialities = ViewBag.Specialities;
+    List<int> teacherKeys = ViewBag.TeachersKey;
+    List<string> teachers = ViewBag.Teachers;
+    var keys = new List<string>{"А", "Б", "В", "Г", "Д"};
+    Group group = ViewBag.Group;
+    keys.Remove(group.Key);
+    Teacher teacher = ViewBag.GroupTeacher;
+    Student[] students = ViewBag.Students;
+}
+
+
+
+<div id="body" style=" padding: 10px;">
+
+    <div id="groupForm" >
+        <h4 style="margin: auto 15%;">Форма для изменения данных о группе <@group.Name> <span style="font-weight: normal; font-size: 14px"><a asp-controller="Group" asp-action="Remove" asp-route-Id="@group.Id" >Удалить группу</a></span></h4>
+            
+        <form asp-controller="Group" asp-action="Edit" method="POST" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" ></div>
+            <div style="display: flex; justify-content: space-evenly; border-bottom: 1.5px solid #000; padding: 5px" >
+                <div>
+                    <label asp-for="Name"></label><br />
+                    <select id="group" asp-for="Name" style="margin: auto 10px; width: 100px">
+                      <option value="@group.Key">@group.Key</option>
+                      @foreach (var key in keys)
+                      {
+                          <option value="@key">@key</option>
+                      }
+                    </select>
+                    <span asp-validation-for="Name"></span>
+                </div>
+
+                <div>
+                    <label asp-for="EduFrom"></label><br />
+                    <input type="number" asp-for="EduFrom" value="@group.EduFrom" placeholder="Выберите год начала обучения" />
+                    <span asp-validation-for="EduFrom"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Speciality"></label><br />
+                    <select id="group" asp-for="Speciality" style="margin: auto 10px">
+                        <option value="@group.Speciality">@group.Speciality</option>
+                        @for (int i = 0; i < specialities.Count(); i++)
+                        {
+                            <option value="@specialities[i]">@specialities[i]</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Speciality"></span>
+                </div>
+
+                
+            </div>
+            <div style="display: flex; justify-content: space-evenly; border-bottom: 1.5px solid #000; padding: 5px">
+                <div>
+                    <label asp-for="CuratorId"></label><br />
+                    <select id="group" asp-for="CuratorId" style="margin: auto 10px">
+                        @if(group.CuratorId == 0){
+                            <option value="0"></option>
+                        }else
+                        {
+                            try
+                            {
+                                <option value="@teacher.Id">@teacher.FullName</option>
+                            }
+                            catch (System.Exception)
+                            {
+                                <option value="0">Не указано</option>
+                            }
+                        }
+                        @if(teachers.Count() != 0 && teacherKeys.Count() != 0){
+                            @for (int i = 0; i < teachers.Count(); i++)
+                            {
+                                <option value="@teacherKeys[i]">@teachers[i]</option>
+                            }
+                        }else{
+                            <option value="0">Не указано</option>
+                        }
+                        
+                    </select>
+                    <span asp-validation-for="Speciality"></span>
+                </div>
+
+                <div>
+                    <label asp-for="HeadmanId"></label><br />
+                    <select id="group" asp-for="HeadmanId" style="margin: auto 10px">
+                        @if(group.HeadManId == 0){
+                            <option value="0"></option>
+                        }else
+                        {
+                            <option value="@ViewBag.HeadMan.Id">@ViewBag.HeadMan.FullName</option>
+                        }
+                        @if(students.Count() != 0){
+                            @for (int i = 0; i < students.Count(); i++)
+                            {
+                                <option value="@students[i].Id">@students[i].FullName</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="HeadmanId"></span>
+                </div>
+
+                <div>
+                    <label asp-for="EduLevel"></label><br />
+                    <select id="group" asp-for="EduLevel" style="margin: auto 10px">
+                        <option value="@group.EduLevel">@group.EduLevel</option>
+                        @for (int i = 0; i < edulevel.Count(); i++)
+                        {
+                            <option value="@edulevel[i]">@edulevel[i]</option>
+                        }
+                    </select>
+                    <span asp-validation-for="EduLevel"></span>
+                </div>
+            </div>
+
+            
+
+                <div>
+                    <label asp-for="StudyForm"></label><br />
+                    @if(group.StudyForm == "Договорник"){
+                         <div style="display: flex;">
+                            <div style="font-size: 16px;">
+                                <label style="margin-right: 15px"><input asp-for="StudyForm" name="StudyForm" checked  type="radio" value="Договорник" /><span>Договорник</span></label>
+                            </div>
+                            <div style="font-size: 16px;">
+                                <label style="margin-right: 15px"><input asp-for="StudyForm" name="StudyForm"  type="radio" value="Бюджетник" /><span>Бюджетник</span></label>
+                            </div>
+                        </div>
+                    } else{
+                         <div style="display: flex;">
+                            <div style="font-size: 16px;">
+                                <label style="margin-right: 15px"><input asp-for="StudyForm" name="StudyForm"   type="radio" value="Договорник" /><span>Договорник</span></label>
+                            </div>
+                            <div style="font-size: 16px;">
+                                <label style="margin-right: 15px"><input asp-for="StudyForm" name="StudyForm" checked type="radio" value="Бюджетник" /><span>Бюджетник</span></label>
+                            </div>
+                        </div>
+                    }
+
+                    
+                    <span asp-validation-for="StudyForm"></span>
+                </div>
+
+            <div>
+                <label asp-for="Note"></label><br />
+                <input type="text" asp-for="Note"  />
+                <span asp-validation-for="Note"></span>
+            </div> 
+            <input type="hidden" name="Id" value="@department.Id">
+            <input type="hidden" name="IdToEdit" value="@group.Id">
+            <input  type="submit" value="Отправить данные"> 
+            
+        </form>
+    </div>
+</div>
+
+      
+
+
+
+
+
+@model EditGroup;
+
+    

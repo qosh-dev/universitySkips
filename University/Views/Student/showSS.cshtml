@@ -1,0 +1,81 @@
+@{
+    Layout = null;
+    List<List<MonthReport>> skips = Model.skips;
+    List<string> headers = new List<string> {
+        "Без причины",
+        "По причине",
+        "Итог"
+        };
+    List<string> fSem = new List<string>{
+        "Сентябрь","Октябрь","Ноябрь","Декабрь"};
+    List<string> sSem = new List<string>{
+        "Февраль","Март","Апрель","Май","Июнь"};
+}
+ <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true"/>
+    <link type="text/css" rel="stylesheet" href="~/lib/materialize/css/materialize.min.css"  media="screen,projection"/>
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+
+
+    <div >
+        <div id="headers" >
+            @for (int i = 0; i < skips.Count(); i++)
+            {
+                <div style="margin-bottom: 10vh;">
+                    <div style="font-size: 16px;margin-left:35%">@(i+1) курс</div>
+                    <div style="width: max-content;">
+                        <div style="border-bottom:1.5px solid black;display:flex;justify-content: center;">1 Семестр</div>
+                        <div style="display: flex;">
+                            
+                                @for (int m = 0; m < fSem.Count(); m++)
+                                {
+                                    <div class="month">
+                                        <div style="display:flex;justify-content: center; border-bottom: 1.5px solid #000">@fSem[m]</div>
+                                        <div style="display: flex; border-bottom: 1.5px solid #000">
+                                            <div class="childhead1"  style="padding-left: 5px;padding-left:5px;border-right:1.5px solid #000; width:110px;border-right:1.5px solid black;">@headers[0]</div>
+                                            <div class="childhead1" style="padding-left: 5px;padding-left:5px;border-right:1.5px solid #000; width:110px;border-right:1.5px solid black;">@headers[1]</div>
+                                            <div class="childhead1" style="padding-left: 5px;padding-left:5px;width: 60px;;border-right:1.5px solid black;">@headers[2]</div>
+                                        </div>
+                                        <div style="display: flex;width:100%">
+                                            <div class="childNum"  style="padding-left: 5px;padding-left:5px;border-right:1.5px solid #000; width:110px;border-right:1.5px solid black;">@skips[i][m].count</div>
+                                            <div class="childNum" style="padding-left: 5px;padding-left:5px;border-right:1.5px solid #000; width:110px;border-right:1.5px solid black;">@skips[i][m].sreason</div>
+                                            <div class="childNum"  style="padding-left: 5px;padding-left:5px;width: 60px;;border-right:1.5px solid black;">@skips[i][m].total</div>
+                                        </div>
+                                    </div>    
+                                }
+                        </div>
+                    </div>
+                    <div style="width: max-content;margin-top:25px">
+                        <div style="border-bottom:1.5px solid black;display:flex;justify-content: center;border-right:1.5px solid black">2 Семестр</div>
+                        <div style="display: flex;">
+                            
+                                @for (int m = 0; m < sSem.Count(); m++)
+                                {
+                                    <div class="month">
+                                        <div style="display:flex;justify-content: center; border-bottom: 1.5px solid #000">@sSem[m]</div>
+                                        <div style="display: flex; border-bottom: 1.5px solid #000">
+                                            <div class="childhead1"  style="padding-left: 5px;padding-left:5px;border-right:1.5px solid #000; width:110px;border-right:1.5px solid black;">@headers[0]</div>
+                                            <div class="childhead2" style="padding-left: 5px;padding-left:5px;border-right:1.5px solid #000; width:110px;border-right:1.5px solid black;">@headers[1]</div>
+                                            <div class="childhead3"  style="padding-left: 5px;padding-left:5px;width: 60px;;border-right:1.5px solid black;">@headers[2]</div>
+                                        </div>
+                                        <div style="display: flex;width:100%">
+                                            <div class="childNum"  style="padding-left: 5px;padding-left:5px;border-right:1.5px solid #000; width:110px;border-right:1.5px solid black;">@skips[i][m+4].count</div>
+                                            <div class="childNum" style="padding-left: 5px;padding-left:5px;border-right:1.5px solid #000; width:110px;border-right:1.5px solid black;">@skips[i][m+4].sreason</div>
+                                            <div class="childNum"  style="padding-left: 5px;padding-left:5px;width: 60px;;border-right:1.5px solid black;">@skips[i][m+4].total</div>
+                                        </div>
+                                    </div>    
+                                }
+                        </div>
+                    </div>
+                </div>
+                    
+            }
+
+        </div>
+     
+                                
+        
+    </div>
+</div>
+
+

@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - University</title>
+    
+    @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true"/> *@
+    <link type="text/css" rel="stylesheet" href="~/lib/materialize/css/materialize.min.css"  media="screen,projection"/>
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true">
+    @RenderSection("CSS", required: false)
+</head>
+<body>
+    
+    <div>
+        
+        <div id="content" style=" float: left; display: flex">
+            <div id="sideBar">
+                <a id="groups" title="Выводит список всех доступных групп" onclick='setSidebar("group")' class="waves-effect waves-teal btn-flat ii" style="background-image: url(/Img/System/g1.svg);"></a>
+                <a id="yellowList" title="Выводит список всех доступных групп, у студентов которых больше 16 пропусков за текуший семестр" onclick='setSidebar("yellow")' class="waves-effect waves-teal btn-flat ii " style="background-image: url(/Img/System/exclamation_icon_160163.svg);"></a>
+                <a id="blackList" title="Выводит список всех доступных групп, у студентов которых больше 35 пропусков за текуший семестр" onclick='setSidebar("black")' class="waves-effect waves-teal btn-flat ii " style="background-image: url(/Img/System/xxx.svg);"></a>
+                <a id="teachers" title="Выводит список всех доступных преподавателей" href="/Teacher/data/1" class="waves-effect waves-teal btn-flat ii " style="background-image: url(/Img/System/teacher.svg);"></a>
+                <a id="teachers" title="Выйти из профиля" href="/Home/logout" class="waves-effect waves-teal btn-flat ii " style="background-image: url(/Img/System/logout.svg);"></a>
+                
+                
+            </div>
+            <div id="secondarySideBar">
+                
+            </div>
+            <div id="content">
+                <div id="nav">
+                    <div id="titleBlock">
+                        <div id="title">Приложение для расчета пропусков</div>
+                    </div>
+                    @if(IsSectionDefined("reportBlock")){
+                         @RenderSection("reportBlock", required: false)
+                    }else {
+                        <div id="navR" style="float: right;background-size: 80% 80%;">
+                            <a class="waves-effect waves-teal btn-flat" onclick="Report()" id="report" @RenderSection("reportHref", required: false) style="background-image: url(/Img/System/box_arrow_in_down_icon_160379.svg);"></a>
+                            <a class="waves-effect waves-teal btn-flat" data-toggle="modal" data-target="#exampleModal" style="background-image: url(/Img/System/send1.svg);"></a>
+                        </div>
+                    }
+                    
+                </div>
+                <div id="secondaryNav"> 
+
+                </div>
+                <div style="margin-bottom:20px;">
+                    @RenderBody() 
+                </div>
+            </div>
+        </div>        
+    </div>
+
+
+
+
+<!-- Modal -->
+<div style="background-color: rgb(80, 64, 64);position: absolute; top: 50px;height : 45%" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addSkipLable">Форма для добавления пропусков в группу </h5>
+      </div>
+      <div class="modal-body">
+        <form id="Mbody"> </form>
+            <div class="file-field input-field" style="flex-grow: 1" >
+                <div class="btn">
+                    <span>Файл</span>
+                    <input id="setSkipFile" type="file" name="file">
+                </div>
+                <div class="file-path-wrapper">
+                    <input id="setFiless" class="file-path validate"  type="text">
+                </div>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+        <button onclick="feedbackAjax()" id="setSkip" type="button" class="btn btn-primary">Отправить в базу</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+    @if(IsSectionDefined("footer")){
+        @RenderSection("footer", required: false)
+
+    }else{
+        <footer style="display: inline;">
+            <div style="float: right;">
+                <span></span>
+                <span></span>
+            </div>
+            <div style="float: left;position :fixed">
+                <span></span>
+                <span></span>
+            </div>
+        
+        </footer>
+    }
+
+
+    
+    <script  src="~/lib/materialize/js/materialize.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+    <script src="~/js/main.js" asp-append-version="true"></script>
+    <script src="~/js/desc.js" asp-append-version="true"></script>
+
+    <script>
+        function feedbackAjax() {
+            var $input = $("#setSkipFile");
+            var fd = new FormData;
+            fd.append('file', $input.prop('files')[0]);
+
+                var data = $('#Mbody').serializeArray();
+                $.each(data,function(){
+                fd.append(this.name,this.value);
+                });
+            $.ajax({
+                url: '/Skip/setSkips',
+                data: fd,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                success: function (data) {
+                    M.toast({html : data});
+                }, error: data => {
+                    M.toast({html : data});
+                    console.log(fd)
+                }
+            });
+        }
+    </script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

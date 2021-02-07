@@ -1,0 +1,40 @@
+@{
+    Layout = null;
+    List<MonthReport> skips = Model.Skips;
+    List<int> idList = Model.IdList; 
+    List<string> names = Model.Names;
+}
+
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true"/>
+    <link type="text/css" rel="stylesheet" href="~/lib/materialize/css/materialize.min.css"  media="screen,projection"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+
+
+    <div id="students"">
+        <table class="table table-hover" >
+            <thead>
+                <tr>
+                    <th>Ф.И.О</th>
+                    <th>Без причины</th> 
+                    <th>По причине</th>
+                    <th>Итог</th>
+                </tr>
+            </thead>
+            <tbody>
+            @for (int i = 0; i < skips.Count(); i++){
+                <tr>
+                    <td>
+                        <a href="/Student/showSS/@idList[i]" >@names[i]</a>
+                    </td>
+                    <td>@skips[i].count</td>
+                    <td >@skips[i].sreason</td>
+                    <td>@skips[i].total</td>
+                </tr>
+    
+    
+            } 
+    
+            </tbody>
+        </table>
+    </div>

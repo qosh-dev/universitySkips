@@ -1,0 +1,28 @@
+@model service.Skips.Models.SReason[]
+@section reportBlock {}
+@section CSS{
+    <style>
+        #sideBar{
+            height: inherit;
+        }
+    </style>
+}
+
+
+
+
+      @for(int i= 0; i < Model.Count();i++)
+        {
+            if (Model[i].Img == ""){
+                continue;
+            }
+            var path = Model[i].Img.Replace("\\","/").Replace("\'","/").Substring(10);
+            <div style="display: flex;flex-wrap: wrap;margin-bottom:20px" >
+                <a style="width: 400px; height:400px; background-image: url(/@path); background-size: cover;" href="/@path" ></a>
+                <div>
+                    <h5>Дата добавления : @Model[i].Date.ToString()</h5>
+                    <p>Количество пропусков : @Model[i].Count</p>
+                </div>
+            </div>
+        }
+

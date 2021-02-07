@@ -1,0 +1,97 @@
+@{
+    @* Layout = null; *@
+    Department department = ViewBag.Department;
+    string[] edulevel = ViewBag.EduLevel;
+    string[] specialities = ViewBag.Specialities;
+    int[] teacherKeys = ViewBag.TeachersKey;
+    string[] teachers = ViewBag.Teachers;
+    string[] keys = new string[]{"А", "Б", "В", "Г", "Д"};
+}
+@model AddGroupForm;
+@section reportBlock {
+}
+
+@section CSS {
+    <style>
+        
+    </style>
+}
+<div id="body" style=" padding: 10px;">
+
+    <div id="groupForm" >
+        <h4 style="margin: auto 15%;">Добавление группы</h4>
+        <form asp-controller="Group" asp-action="AddGroup" method="POST" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" ></div>
+            <div style="display: flex; justify-content: space-evenly; border-bottom: 1.5px solid #000; padding: 5px" >
+                <div>
+                    <label asp-for="Name"></label><br />
+                    <select id="group" asp-for="Name">
+                        @for (int i = 0; i < keys.Count(); i++)
+                        {
+                            <option value="@keys[i]">@keys[i]</option>
+                        }
+                    </select>
+                </div>
+
+                <div>
+                    <label asp-for="EduFrom"></label><br />
+                    <input type="number" asp-for="EduFrom" placeholder="Выберите год начала обучения" value="@DateTime.Now.Year"/>
+                    <span asp-validation-for="EduFrom"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Speciality"></label><a href="/Home/addSpec/@department.Id" style="font-size: 12px;">( Добавить специальность )</a><br />
+                    <select id="group" asp-for="Speciality" >
+                        @for (int i = 0; i < specialities.Count(); i++)
+                        {
+                            <option value="@specialities[i]">@specialities[i]</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Speciality"></span>
+                </div>
+
+                
+            </div>
+            <div style="display: flex; justify-content: space-evenly; border-bottom: 1.5px solid #000; padding: 5px">
+                <div>
+                    <label asp-for="CuratorId"></label><a href="/Teacher/add/@department.Id" style="font-size: 12px;">( Добавить учителя )</a><br />
+                    <select id="group" asp-for="CuratorId" >
+                        <option value="0"></option>
+                        @for (int i = 0; i < teachers.Count(); i++)
+                        {
+                            <option value="@teacherKeys[i]">@teachers[i]</option>
+                        }
+                    </select>
+                </div>
+
+                <div>
+                    <label asp-for="EduLevel"></label><br />
+                    <select id="group" asp-for="EduLevel" >
+                        @for (int i = 0; i < edulevel.Count(); i++)
+                        {
+                            <option value="@edulevel[i]">@edulevel[i]</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+                <div style="display: flex;">
+                    <label asp-for="StudyForm"></label>
+                    <div style="font-size: 16px;">
+                        <label style="margin-right: 15px"><input asp-for="StudyForm" name="StudyForm" checked  type="radio" value="Договорник" /><span>Договорник</span></label>
+                    </div>
+                    <div style="font-size: 16px;">
+                        <label style="margin-right: 15px"><input asp-for="StudyForm" name="StudyForm"  type="radio" value="Бюджетник" /><span>Бюджетник</span></label>
+                    </div>
+                </div>
+
+            <div>
+                <label asp-for="Note"></label><br />
+                <input type="text" asp-for="Note"  />
+            </div>
+            <input type="hidden" name="Id" value="@department.Id">
+            <input class="waves-effect waves-light btn"  type="submit" value="Отправить данные">
+            
+        </form>
+    </div>
+</div>

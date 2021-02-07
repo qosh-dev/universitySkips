@@ -1,0 +1,50 @@
+@{
+    Student[] students = Model.list;
+    ViewGroupDesc group = Model.group;
+}
+
+
+@section reportBlock {
+    
+    <div id="navR" style="float: right;background-size: 80% 80%;">
+        <a  class="waves-effect waves-light btn" style="width: max-content;"  href='/Student/AddStudent/@group.Id'>Добавить студентов</a> 
+
+        <a  class="waves-effect waves-light btn"  style="background-image: url(/Img/System/Edit_icon-icons.com_55921.svg);" href='/Group/Edit/@group.Id'></a> 
+        
+    </div> 
+}
+
+
+<table class="table table-hover" style="margin-bottom: 50px">
+    <thead>
+        <tr>
+            <th>Ф.И.О</th>
+            <th>Номер телефона</th>
+            <th>Адрес</th>
+            <th>Дата рождения</th>
+            <th>Форма обучения</th>
+            <th>Номер студенческого билета</th>
+            <th>Поддержка </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Student student in students)
+        {
+            string contract = student.Contract ? "Договорник" : "Бюджетник";
+            var date = lib.Methods.date(student.Birthday.ToString());
+
+            <tr>
+                <td>
+                    <a asp-controller="Student" asp-action="desc" asp-route-Id="@student.Id" >@student.FullName</a>
+                </td>
+                <td> @student.PhoneNumber </td>
+                <td> @student.Address </td>
+                <td> @date </td>
+                <td> @contract </td>
+                <td> @student.RecordBookNumber </td>
+                <td> @student.BB </td>
+            </tr>
+            
+        }
+    </tbody>
+</table>

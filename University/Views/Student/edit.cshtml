@@ -1,0 +1,117 @@
+
+@section reportBlock {}
+@section CSS {
+    <style>
+        #sideBar{
+            height: auto;
+        }
+    </style>
+}
+
+<div id="body" style="margin-left: 20px;" >
+    @model Student;
+
+        <form asp-controller="Student" asp-action="edit" method="POST" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" ></div>
+                <div>
+                    <label asp-for="Name"></label><br />
+                    <input type="text" asp-for="Name" placeholder="Введите имя" value="@Model.Name" />
+                    <span asp-validation-for="Name"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Surname"></label><br />
+                    <input type="text" asp-for="Surname" placeholder="Введите фамилию" value="@Model.Surname" />
+                    <span asp-validation-for="Surname"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Patronymic"></label><br />
+                    <input type="text" asp-for="Patronymic" placeholder="Введите Отчество" value="@Model.Patronymic" />
+                    <span asp-validation-for="Patronymic"></span>
+                </div>
+                <div>
+                    <label asp-for="PhoneNumber"></label><br />
+                    <input type="text" asp-for="PhoneNumber" placeholder="Введите номер телефона" value="@Model.PhoneNumber" />
+                    <span asp-validation-for="PhoneNumber"></span>
+                </div>
+                
+                <div>
+                    <label asp-for="Email"></label><br />
+                    <input type="text" asp-for="Email" placeholder="Введите адрес электронной почты" value="@Model.Email"/>
+                    <span asp-validation-for="Email"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Birthday"></label><br />
+                    <input type="text" asp-for="Birthday" value="@Model.Birthday"/>
+                    <span asp-validation-for="Birthday"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Address"></label><br />
+                    <input type="text" asp-for="Address" placeholder="Введите адрес" value="@Model.Address" />
+                    <span asp-validation-for="Address"></span>
+                </div>
+
+                <div>
+                    <label asp-for="RecordBookNumber"></label><br />
+                    <input type="text" asp-for="RecordBookNumber" placeholder="Введите код" value="@Model.RecordBookNumber" />
+                    <span asp-validation-for="RecordBookNumber"></span>
+                </div>
+            
+                <div>
+                    <label asp-for="Birthday"></label><br />
+                    <input type="date" asp-for="Birthday" placeholder="Выберите дату рождения" value="@Model.Birthday" />
+                    <span asp-validation-for="Birthday"></span>
+                </div>
+
+
+                <div>
+                    <label asp-for="Img"></label><br />
+                    <input type="file" name="file" asp-for="Img" placeholder="Выберите фотографию" value="@Model.Img" />
+                    <span asp-validation-for="Img"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Contract"></label><br />
+
+                    <p>
+                        <label>
+                            <input name="Enable" asp-for="Contract" type="radio" value="true" checked />
+                            <span>Договорник</span>
+                        </label>
+                        </p>
+                        <p>
+                        <label>
+                            <input name="Enable" asp-for="Contract" value="false" type="radio" />
+                            <span>Бюджетник</span>
+                        </label>
+                    </p>
+                    <span asp-validation-for="Contract"></span>
+                </div>
+
+            <div>
+                <label asp-for="Note"></label><br />
+                <input type="text" asp-for="Note" value="@Model.Note" />
+                <span asp-validation-for="Note"></span>
+            </div>
+
+            <div>
+                <label asp-for="BB"></label><br />
+                <input type="text" asp-for="BB" value="@Model.BB" />
+                <span asp-validation-for="BB"></span>
+            </div> <br>
+
+            <input type="hidden" name="GroupId" value="@Model.GroupId">
+            <input  class="btn waves-effect waves-light"  type="submit" value="Отправить данные">
+            
+        </form>
+</div>
+@section Scripts {
+    <script>
+         $($(document).ready(() => {
+            $("#title").html("Форма для изменений личных данных студента")
+        }))
+    </script>
+}

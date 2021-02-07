@@ -1,0 +1,100 @@
+@* <style>
+    th{
+        font-size: 12px;
+    }
+    td{
+        font-size: 12px;
+    }
+    p{
+        font-size: 12px;
+    }
+    li{
+        font-size: 13px;
+    }
+</style>
+ *@
+
+
+@{
+    Department department = Model.Department;
+    List<ViewGroup> groups = Model.groups;
+    int EduYear = @DateTime.Now.Year - groups[0].EduStart + 1;
+}
+@* @section links{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Teacher" asp-action="data" asp-route-Id="1">Преподаватели</a>
+    </li>
+} *@
+
+@if(groups.Count() != 0){
+
+<table class="table table-hover" style="margin-bottom: 50px">
+    <thead>
+        <tr>
+            <th>Название</th>
+            <th>Куратор</th>
+            <th>Староста</th>
+            <th>Специальность</th>
+            <th>Учащиеся</th>
+            <th>Пропуски</th>
+            <th> Функции - 
+                <a asp-controller="Group" asp-action="AddGroup" asp-route-Id="@department.Id"> Добавить группу</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ViewGroup group in groups)
+        {
+            <tr>
+                <td>
+                        <a asp-controller="Group" asp-action="desc" asp-route-Id="@group.Id" >
+                            @group.Name <span style="font-size: 10px;">  (@group.EduStart)</span>
+                        </a>
+                </td>
+                <td>
+                    @* @if(group.CuratorId !=0){
+                        <a asp-controller="Teacher" asp-action="desc" asp-route-Id="@group.CuratorId">
+                            @group.Curator
+                        </a>
+                    }
+                    @if(group.CuratorId == 0){ *@
+                            @group.Curator
+                    @* } *@
+                </td>
+                <td>
+                    @* @if(group.HeadManId != 0){
+                        <a asp-controller="Student" asp-action="student" asp-route-Id="@group.HeadManId">
+                            @group.HeadMan
+                        </a>
+                    }
+                    @if(group.HeadManId == 0){ *@
+                        @group.HeadMan
+                    @* } *@
+                </td>
+                <td>
+                    @group.Speciality
+                </td>
+                <td>
+                    @group.StudentsCount
+                </td>
+                <td>
+                    @{string href2 = $"/Skip/Report?id={@group.Id}&eduYear={DateTime.Now.Year - group.EduStart + 1}&semester={lib.Methods.GetSemestry()}"; }
+                    @if(group.StudentsCount != 0){
+                        <a href= @href2> Отчет </a><span> - </span>
+                        <a href="@("/Skip/setSkips?Id=" + group.Id)" >Добавить</a>
+                    }
+                </td>
+                <td>
+                    <a asp-controller="Group" asp-action="Edit" asp-route-Id="@group.Id" >Изменить</a>
+                    @* - <a asp-controller="Group" asp-action="Remove" asp-route-Id="@group.Id" >Удалить</a> *@
+                </td>
+                
+                <td>
+                    
+                </td>
+            </tr>
+            
+        }
+    </tbody>
+</table>
+}
